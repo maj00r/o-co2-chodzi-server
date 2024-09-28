@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OCo2Chodzi.Service.Infrastructure;
 
@@ -10,9 +11,11 @@ using OCo2Chodzi.Service.Infrastructure;
 namespace OCo2Chodzi.Endpoint.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240928155259_EmissionGroupReference")]
+    partial class EmissionGroupReference
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,7 +63,7 @@ namespace OCo2Chodzi.Endpoint.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EmissionGroups");
+                    b.ToTable("EmissionGroup");
                 });
 
             modelBuilder.Entity("Oco2Chodzi.Models.Emissions.LinearEmission", b =>
@@ -141,7 +144,7 @@ namespace OCo2Chodzi.Endpoint.Migrations
                     b.HasOne("Oco2Chodzi.Models.Emissions.EmissionGroup", "Group")
                         .WithMany("MassEmissions")
                         .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Group");
@@ -152,7 +155,7 @@ namespace OCo2Chodzi.Endpoint.Migrations
                     b.HasOne("Oco2Chodzi.Models.Emissions.EmissionGroup", "Group")
                         .WithMany("SingularEmissions")
                         .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Group");

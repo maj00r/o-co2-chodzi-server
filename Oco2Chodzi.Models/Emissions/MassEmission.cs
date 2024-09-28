@@ -10,4 +10,8 @@ public record MassEmission : BaseEntity
 {
     [Required]
     public decimal EmissionPerKilo { get; init; }   
+    [Required]
+    public required EmissionGroup Group { get; init; }
+    [Required]
+    public int GroupId { get; init; }
 }
