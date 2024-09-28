@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OCo2Chodzi.Service.Infrastructure;
+using OCo2Chodzi.Service.Ports;
 
 namespace OCo2Chodzi.Service;
 
@@ -18,6 +19,8 @@ public static class ModuleBootstrap
                 
             });
         });
+
+        services.AddScoped<IDiscoveryProvider, DiscoveryProvider>();
 
         return services;
     }
