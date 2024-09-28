@@ -15,4 +15,8 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Oco2Chodzi.Models\Oco2Chodzi.Models.csproj" />
+  </ItemGroup>
 </Project>
