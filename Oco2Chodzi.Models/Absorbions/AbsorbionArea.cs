@@ -20,4 +20,6 @@ public record AbsorbionArea : BaseEntity
     public required AbsorbionGroup AbsorbionGroup { get; init; }
 
     public int AbsorbionGroupId { get; init; }
+
+    public decimal AverageDensityPerSquareMeter { get; init; }
 }
