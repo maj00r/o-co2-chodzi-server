@@ -10,7 +10,7 @@ public enum AbsorbionType
     ParkKilogramsPerYear
 }
 
-public record Absorbion : BaseEntity
+public record PredefinedAbsorbionRate : BaseEntity
 {
     [Required]
     public AbsorbionType AbsorbionType { get; init; }

@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OCo2Chodzi.Service.Infrastructure;
-using Oco2Chodzi.Models;
+
 namespace OCo2Chodzi.Service;
 
 public static class ModuleBootstrap
@@ -13,7 +13,9 @@ public static class ModuleBootstrap
         {
             options.UseSqlServer(configuration.GetRequiredSection("Database")["ConnectionString"], builder => 
             {
-                builder.MigrationsAssembly("OCo2Chodzi.Endpoint");
+                builder.MigrationsAssembly("OCo2Chodzi.Endpoint")
+                    .UseNetTopologySuite();
+                
             });
         });
 
