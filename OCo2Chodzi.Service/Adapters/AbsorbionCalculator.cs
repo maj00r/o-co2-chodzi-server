@@ -60,6 +60,9 @@ public class AbsorbionCalculator(ApplicationDbContext dbContext) : IAbsorbionCal
     private async Task<AbsorbionResult> ForAbsorbionArea(decimal absorbionMassKilo)
     {
         var group = await RandomAbsorbionGroup();
+        var areas = group.AbsorbionAreas;
+        
+
 
         return new AbsorbionResult($"Czas potrzebny na pochłonięcie CO2 przez {group.Caption} [w latach]",
             "random-absorbion-area", 10);
@@ -70,6 +73,8 @@ public class AbsorbionCalculator(ApplicationDbContext dbContext) : IAbsorbionCal
         return dbContext.AbsorbionGroups
             .OrderBy(x => Guid.NewGuid())
             .Take(1)
+            .Include(x => x.AbsorbionAreas)
+                .ThenInclude(x => x.AbsorbionDefinition)
             .FirstOrDefaultAsync()!;
     }
 }

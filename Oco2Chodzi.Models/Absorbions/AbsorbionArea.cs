@@ -16,6 +16,8 @@ public record AbsorbionArea : BaseEntity
 {
     public required Polygon Area { get; init; }
 
+    public required long AreaInAres { get; init; }
+
     public required AbsorbionDefinition AbsorbionDefinition { get; init; }
     public required AbsorbionGroup AbsorbionGroup { get; init; }
 

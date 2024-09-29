@@ -33,6 +33,10 @@ public class ApplicationDbContext(DbContextOptions options) : DbContext(options)
             .ToList()
             .ForEach(p => p.SetColumnType("decimal(18,6)"));
 
+        modelBuilder.Entity<AbsorbionArea>()
+                .Property(o => o.AreaInAres)
+                .HasComputedColumnSql("Area.STArea() / 100");
+
 
         base.OnModelCreating(modelBuilder);
     }
