@@ -34,6 +34,9 @@ public class ApplicationDbContext(DbContextOptions options) : DbContext(options)
             .ForEach(p => p.SetColumnType("decimal(18,6)"));
 
         modelBuilder.Entity<AbsorbionArea>()
+                .Property(x => x.Area).HasColumnType("geometry");
+        
+        modelBuilder.Entity<AbsorbionArea>()
                 .Property(o => o.AreaInAres)
                 .HasComputedColumnSql("Area.STArea() / 100");
 

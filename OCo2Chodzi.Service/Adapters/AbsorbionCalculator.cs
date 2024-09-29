@@ -61,13 +61,13 @@ public class AbsorbionCalculator(ApplicationDbContext dbContext) : IAbsorbionCal
     {
         var group = await RandomAbsorbionGroup();
         var areas = group.AbsorbionAreas;
+
+        var sumOfRates = areas.Sum(x => x.ItemsCount * x.AbsorbionDefinition.AbsorbionKilogramsPerGrowingSeason);
+        var years = Math.Round(absorbionMassKilo / sumOfRates, 1);
         
-
-
         return new AbsorbionResult($"Czas potrzebny na pochłonięcie CO2 przez {group.Caption} [w latach]",
-            "random-absorbion-area", 10);
+            "random-absorbion-area", years);
     }
-
     private Task<AbsorbionGroup> RandomAbsorbionGroup()
     {
         return dbContext.AbsorbionGroups

@@ -16,7 +16,7 @@ public record AbsorbionArea : BaseEntity
 {
     public required Polygon Area { get; init; }
 
-    public required long AreaInAres { get; init; }
+    public required double AreaInAres { get; init; }
 
     public required AbsorbionDefinition AbsorbionDefinition { get; init; }
     public required AbsorbionGroup AbsorbionGroup { get; init; }
@@ -24,4 +24,12 @@ public record AbsorbionArea : BaseEntity
     public int AbsorbionGroupId { get; init; }
 
     public decimal AverageDensityPerAre { get; init; }
+
+    public long ItemsCount
+    {
+        get
+        {
+            return Convert.ToInt64(Math.Ceiling(AreaInAres * Convert.ToDouble(AverageDensityPerAre)));
+        }
+    }
 }

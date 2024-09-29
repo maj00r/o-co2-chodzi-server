@@ -38,11 +38,11 @@ namespace OCo2Chodzi.Endpoint.Migrations
 
                     b.Property<Polygon>("Area")
                         .IsRequired()
-                        .HasColumnType("geography");
+                        .HasColumnType("geometry");
 
-                    b.Property<long>("AreaInAres")
+                    b.Property<double>("AreaInAres")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("bigint")
+                        .HasColumnType("float")
                         .HasComputedColumnSql("Area.STArea() / 100");
 
                     b.Property<decimal>("AverageDensityPerAre")
