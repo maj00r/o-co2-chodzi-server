@@ -8,11 +8,11 @@ using OCo2Chodzi.Service.Infrastructure;
 
 #nullable disable
 
-namespace OCo2Chodzi.Endpoint.Migrations
+namespace OCo2Chodzi.Service.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240928152356_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240928155259_EmissionGroupReference")]
+    partial class EmissionGroupReference
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,7 +45,25 @@ namespace OCo2Chodzi.Endpoint.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MyProperty");
+                    b.ToTable("Absorbions");
+                });
+
+            modelBuilder.Entity("Oco2Chodzi.Models.Emissions.EmissionGroup", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Caption")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EmissionGroup");
                 });
 
             modelBuilder.Entity("Oco2Chodzi.Models.Emissions.LinearEmission", b =>
@@ -85,7 +103,12 @@ namespace OCo2Chodzi.Endpoint.Migrations
                     b.Property<decimal>("EmissionPerKilo")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("GroupId");
 
                     b.ToTable("MassEmissions");
                 });
@@ -106,9 +129,43 @@ namespace OCo2Chodzi.Endpoint.Migrations
                     b.Property<decimal>("Emission")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("GroupId");
+
                     b.ToTable("SingularEmissions");
+                });
+
+            modelBuilder.Entity("Oco2Chodzi.Models.Emissions.MassEmission", b =>
+                {
+                    b.HasOne("Oco2Chodzi.Models.Emissions.EmissionGroup", "Group")
+                        .WithMany("MassEmissions")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Group");
+                });
+
+            modelBuilder.Entity("Oco2Chodzi.Models.Emissions.SingularEmission", b =>
+                {
+                    b.HasOne("Oco2Chodzi.Models.Emissions.EmissionGroup", "Group")
+                        .WithMany("SingularEmissions")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Group");
+                });
+
+            modelBuilder.Entity("Oco2Chodzi.Models.Emissions.EmissionGroup", b =>
+                {
+                    b.Navigation("MassEmissions");
+
+                    b.Navigation("SingularEmissions");
                 });
 #pragma warning restore 612, 618
         }

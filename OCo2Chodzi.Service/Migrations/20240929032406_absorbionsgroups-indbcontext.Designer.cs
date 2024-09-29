@@ -9,11 +9,11 @@ using OCo2Chodzi.Service.Infrastructure;
 
 #nullable disable
 
-namespace OCo2Chodzi.Endpoint.Migrations
+namespace OCo2Chodzi.Service.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240928232020_Emissions-BusinessTypeField")]
-    partial class EmissionsBusinessTypeField
+    [Migration("20240929032406_absorbionsgroups-indbcontext")]
+    partial class absorbionsgroupsindbcontext
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,8 +43,8 @@ namespace OCo2Chodzi.Endpoint.Migrations
                         .IsRequired()
                         .HasColumnType("geography");
 
-                    b.Property<decimal>("AverageDensityPerSquareMeter")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("AverageDensityPerAre")
+                        .HasColumnType("decimal(18,6)");
 
                     b.Property<string>("Caption")
                         .IsRequired()
@@ -69,7 +69,7 @@ namespace OCo2Chodzi.Endpoint.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("AbsorbionKilogramsPerGrowingSeason")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,6)");
 
                     b.Property<int>("AgeYears")
                         .HasColumnType("int");
@@ -105,7 +105,7 @@ namespace OCo2Chodzi.Endpoint.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AbsorbionGroup");
+                    b.ToTable("AbsorbionGroups");
                 });
 
             modelBuilder.Entity("Oco2Chodzi.Models.Absorbions.PredefinedAbsorbionRate", b =>
@@ -116,8 +116,9 @@ namespace OCo2Chodzi.Endpoint.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AbsorbionType")
-                        .HasColumnType("int");
+                    b.Property<string>("AbsorbionType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Caption")
                         .IsRequired()
@@ -125,11 +126,11 @@ namespace OCo2Chodzi.Endpoint.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<decimal>("Value")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,6)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Absorbions");
+                    b.ToTable("PredefinedAbsorbionRates");
                 });
 
             modelBuilder.Entity("Oco2Chodzi.Models.Emissions.LinearEmission", b =>
@@ -150,7 +151,7 @@ namespace OCo2Chodzi.Endpoint.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<decimal>("EmissionPerKm")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,6)");
 
                     b.Property<string>("Unit")
                         .IsRequired()
@@ -179,7 +180,7 @@ namespace OCo2Chodzi.Endpoint.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<decimal>("EmissionPerKilo")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,6)");
 
                     b.Property<string>("Unit")
                         .IsRequired()
@@ -208,7 +209,7 @@ namespace OCo2Chodzi.Endpoint.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<decimal>("Emission")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,6)");
 
                     b.Property<string>("Unit")
                         .IsRequired()

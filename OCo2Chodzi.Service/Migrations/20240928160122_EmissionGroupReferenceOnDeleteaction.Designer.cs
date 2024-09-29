@@ -8,11 +8,11 @@ using OCo2Chodzi.Service.Infrastructure;
 
 #nullable disable
 
-namespace OCo2Chodzi.Endpoint.Migrations
+namespace OCo2Chodzi.Service.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240928155259_EmissionGroupReference")]
-    partial class EmissionGroupReference
+    [Migration("20240928160122_EmissionGroupReferenceOnDeleteaction")]
+    partial class EmissionGroupReferenceOnDeleteaction
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,7 +63,7 @@ namespace OCo2Chodzi.Endpoint.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EmissionGroup");
+                    b.ToTable("EmissionGroups");
                 });
 
             modelBuilder.Entity("Oco2Chodzi.Models.Emissions.LinearEmission", b =>
@@ -144,7 +144,7 @@ namespace OCo2Chodzi.Endpoint.Migrations
                     b.HasOne("Oco2Chodzi.Models.Emissions.EmissionGroup", "Group")
                         .WithMany("MassEmissions")
                         .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Group");
@@ -155,7 +155,7 @@ namespace OCo2Chodzi.Endpoint.Migrations
                     b.HasOne("Oco2Chodzi.Models.Emissions.EmissionGroup", "Group")
                         .WithMany("SingularEmissions")
                         .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Group");

@@ -9,11 +9,11 @@ using OCo2Chodzi.Service.Infrastructure;
 
 #nullable disable
 
-namespace OCo2Chodzi.Endpoint.Migrations
+namespace OCo2Chodzi.Service.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240929032406_absorbionsgroups-indbcontext")]
-    partial class absorbionsgroupsindbcontext
+    [Migration("20240929025108_DecimalType-BiggerPrecision")]
+    partial class DecimalTypeBiggerPrecision
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -105,7 +105,7 @@ namespace OCo2Chodzi.Endpoint.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AbsorbionGroups");
+                    b.ToTable("AbsorbionGroup");
                 });
 
             modelBuilder.Entity("Oco2Chodzi.Models.Absorbions.PredefinedAbsorbionRate", b =>
@@ -130,7 +130,7 @@ namespace OCo2Chodzi.Endpoint.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PredefinedAbsorbionRates");
+                    b.ToTable("Absorbions");
                 });
 
             modelBuilder.Entity("Oco2Chodzi.Models.Emissions.LinearEmission", b =>

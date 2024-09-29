@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace OCo2Chodzi.Endpoint.Migrations
+namespace OCo2Chodzi.Service.Migrations
 {
     /// <inheritdoc />
     public partial class EmissionGroupReference : Migration

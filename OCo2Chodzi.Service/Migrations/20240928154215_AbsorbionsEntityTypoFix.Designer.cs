@@ -8,7 +8,7 @@ using OCo2Chodzi.Service.Infrastructure;
 
 #nullable disable
 
-namespace OCo2Chodzi.Endpoint.Migrations
+namespace OCo2Chodzi.Service.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20240928154215_AbsorbionsEntityTypoFix")]

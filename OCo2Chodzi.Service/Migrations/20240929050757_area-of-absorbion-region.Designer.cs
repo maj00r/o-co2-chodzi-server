@@ -9,11 +9,11 @@ using OCo2Chodzi.Service.Infrastructure;
 
 #nullable disable
 
-namespace OCo2Chodzi.Endpoint.Migrations
+namespace OCo2Chodzi.Service.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240929025108_DecimalType-BiggerPrecision")]
-    partial class DecimalTypeBiggerPrecision
+    [Migration("20240929050757_area-of-absorbion-region")]
+    partial class areaofabsorbionregion
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,13 +43,18 @@ namespace OCo2Chodzi.Endpoint.Migrations
                         .IsRequired()
                         .HasColumnType("geography");
 
+                    b.Property<long>("AreaInAres")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("bigint")
+                        .HasComputedColumnSql("Area.STArea() / 100");
+
                     b.Property<decimal>("AverageDensityPerAre")
                         .HasColumnType("decimal(18,6)");
 
                     b.Property<string>("Caption")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.HasKey("Id");
 
@@ -76,8 +81,8 @@ namespace OCo2Chodzi.Endpoint.Migrations
 
                     b.Property<string>("Caption")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<int>("GrowingSeasonWeeks")
                         .HasColumnType("int");
@@ -100,12 +105,12 @@ namespace OCo2Chodzi.Endpoint.Migrations
 
                     b.Property<string>("Caption")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("AbsorbionGroup");
+                    b.ToTable("AbsorbionGroups");
                 });
 
             modelBuilder.Entity("Oco2Chodzi.Models.Absorbions.PredefinedAbsorbionRate", b =>
@@ -122,15 +127,15 @@ namespace OCo2Chodzi.Endpoint.Migrations
 
                     b.Property<string>("Caption")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<decimal>("Value")
                         .HasColumnType("decimal(18,6)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Absorbions");
+                    b.ToTable("PredefinedAbsorbionRates");
                 });
 
             modelBuilder.Entity("Oco2Chodzi.Models.Emissions.LinearEmission", b =>
@@ -147,8 +152,8 @@ namespace OCo2Chodzi.Endpoint.Migrations
 
                     b.Property<string>("Caption")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<decimal>("EmissionPerKm")
                         .HasColumnType("decimal(18,6)");
@@ -176,8 +181,8 @@ namespace OCo2Chodzi.Endpoint.Migrations
 
                     b.Property<string>("Caption")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<decimal>("EmissionPerKilo")
                         .HasColumnType("decimal(18,6)");
@@ -205,8 +210,8 @@ namespace OCo2Chodzi.Endpoint.Migrations
 
                     b.Property<string>("Caption")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<decimal>("Emission")
                         .HasColumnType("decimal(18,6)");

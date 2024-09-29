@@ -9,11 +9,11 @@ using OCo2Chodzi.Service.Infrastructure;
 
 #nullable disable
 
-namespace OCo2Chodzi.Endpoint.Migrations
+namespace OCo2Chodzi.Service.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240929050757_area-of-absorbion-region")]
-    partial class areaofabsorbionregion
+    [Migration("20240929040213_longer-caption")]
+    partial class longercaption
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,11 +42,6 @@ namespace OCo2Chodzi.Endpoint.Migrations
                     b.Property<Polygon>("Area")
                         .IsRequired()
                         .HasColumnType("geography");
-
-                    b.Property<long>("AreaInAres")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("bigint")
-                        .HasComputedColumnSql("Area.STArea() / 100");
 
                     b.Property<decimal>("AverageDensityPerAre")
                         .HasColumnType("decimal(18,6)");

@@ -2,27 +2,27 @@
 
 #nullable disable
 
-namespace OCo2Chodzi.Endpoint.Migrations
+namespace OCo2Chodzi.Service.Migrations
 {
     /// <inheritdoc />
-    public partial class areaofabsorbionregion : Migration
+    public partial class AbsorbionAreaDefinitionAverageDensityPerMeter : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<long>(
-                name: "AreaInAres",
+            migrationBuilder.AddColumn<decimal>(
+                name: "AverageDensityPerSquareMeter",
                 table: "AbsorbionArea",
-                type: "bigint",
+                type: "decimal(18,2)",
                 nullable: false,
-                computedColumnSql: "Area.STArea() / 100");
+                defaultValue: 0m);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "AreaInAres",
+                name: "AverageDensityPerSquareMeter",
                 table: "AbsorbionArea");
         }
     }

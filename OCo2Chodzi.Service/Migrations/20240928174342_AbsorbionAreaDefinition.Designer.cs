@@ -9,11 +9,11 @@ using OCo2Chodzi.Service.Infrastructure;
 
 #nullable disable
 
-namespace OCo2Chodzi.Endpoint.Migrations
+namespace OCo2Chodzi.Service.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240929040213_longer-caption")]
-    partial class longercaption
+    [Migration("20240928174342_AbsorbionAreaDefinition")]
+    partial class AbsorbionAreaDefinition
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,13 +43,10 @@ namespace OCo2Chodzi.Endpoint.Migrations
                         .IsRequired()
                         .HasColumnType("geography");
 
-                    b.Property<decimal>("AverageDensityPerAre")
-                        .HasColumnType("decimal(18,6)");
-
                     b.Property<string>("Caption")
                         .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
@@ -69,15 +66,15 @@ namespace OCo2Chodzi.Endpoint.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("AbsorbionKilogramsPerGrowingSeason")
-                        .HasColumnType("decimal(18,6)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("AgeYears")
                         .HasColumnType("int");
 
                     b.Property<string>("Caption")
                         .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<int>("GrowingSeasonWeeks")
                         .HasColumnType("int");
@@ -100,12 +97,12 @@ namespace OCo2Chodzi.Endpoint.Migrations
 
                     b.Property<string>("Caption")
                         .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("AbsorbionGroups");
+                    b.ToTable("AbsorbionGroup");
                 });
 
             modelBuilder.Entity("Oco2Chodzi.Models.Absorbions.PredefinedAbsorbionRate", b =>
@@ -116,21 +113,38 @@ namespace OCo2Chodzi.Endpoint.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("AbsorbionType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("AbsorbionType")
+                        .HasColumnType("int");
 
                     b.Property<string>("Caption")
                         .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<decimal>("Value")
-                        .HasColumnType("decimal(18,6)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("PredefinedAbsorbionRates");
+                    b.ToTable("Absorbions");
+                });
+
+            modelBuilder.Entity("Oco2Chodzi.Models.Emissions.EmissionGroup", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Caption")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EmissionGroups");
                 });
 
             modelBuilder.Entity("Oco2Chodzi.Models.Emissions.LinearEmission", b =>
@@ -141,21 +155,13 @@ namespace OCo2Chodzi.Endpoint.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("BusinessType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Caption")
                         .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<decimal>("EmissionPerKm")
-                        .HasColumnType("decimal(18,6)");
-
-                    b.Property<string>("Unit")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -170,23 +176,20 @@ namespace OCo2Chodzi.Endpoint.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("BusinessType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Caption")
                         .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<decimal>("EmissionPerKilo")
-                        .HasColumnType("decimal(18,6)");
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("Unit")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GroupId");
 
                     b.ToTable("MassEmissions");
                 });
@@ -199,23 +202,20 @@ namespace OCo2Chodzi.Endpoint.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("BusinessType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Caption")
                         .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<decimal>("Emission")
-                        .HasColumnType("decimal(18,6)");
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("Unit")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GroupId");
 
                     b.ToTable("SingularEmissions");
                 });
@@ -239,9 +239,38 @@ namespace OCo2Chodzi.Endpoint.Migrations
                     b.Navigation("AbsorbionGroup");
                 });
 
+            modelBuilder.Entity("Oco2Chodzi.Models.Emissions.MassEmission", b =>
+                {
+                    b.HasOne("Oco2Chodzi.Models.Emissions.EmissionGroup", "Group")
+                        .WithMany("MassEmissions")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Group");
+                });
+
+            modelBuilder.Entity("Oco2Chodzi.Models.Emissions.SingularEmission", b =>
+                {
+                    b.HasOne("Oco2Chodzi.Models.Emissions.EmissionGroup", "Group")
+                        .WithMany("SingularEmissions")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Group");
+                });
+
             modelBuilder.Entity("Oco2Chodzi.Models.Absorbions.AbsorbionGroup", b =>
                 {
                     b.Navigation("AbsorbionAreas");
+                });
+
+            modelBuilder.Entity("Oco2Chodzi.Models.Emissions.EmissionGroup", b =>
+                {
+                    b.Navigation("MassEmissions");
+
+                    b.Navigation("SingularEmissions");
                 });
 #pragma warning restore 612, 618
         }

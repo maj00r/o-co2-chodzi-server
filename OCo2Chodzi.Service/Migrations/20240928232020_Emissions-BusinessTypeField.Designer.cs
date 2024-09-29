@@ -9,11 +9,11 @@ using OCo2Chodzi.Service.Infrastructure;
 
 #nullable disable
 
-namespace OCo2Chodzi.Endpoint.Migrations
+namespace OCo2Chodzi.Service.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240928174342_AbsorbionAreaDefinition")]
-    partial class AbsorbionAreaDefinition
+    [Migration("20240928232020_Emissions-BusinessTypeField")]
+    partial class EmissionsBusinessTypeField
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,6 +42,9 @@ namespace OCo2Chodzi.Endpoint.Migrations
                     b.Property<Polygon>("Area")
                         .IsRequired()
                         .HasColumnType("geography");
+
+                    b.Property<decimal>("AverageDensityPerSquareMeter")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Caption")
                         .IsRequired()
@@ -129,24 +132,6 @@ namespace OCo2Chodzi.Endpoint.Migrations
                     b.ToTable("Absorbions");
                 });
 
-            modelBuilder.Entity("Oco2Chodzi.Models.Emissions.EmissionGroup", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Caption")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("EmissionGroups");
-                });
-
             modelBuilder.Entity("Oco2Chodzi.Models.Emissions.LinearEmission", b =>
                 {
                     b.Property<int>("Id")
@@ -155,6 +140,10 @@ namespace OCo2Chodzi.Endpoint.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("BusinessType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Caption")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -162,6 +151,10 @@ namespace OCo2Chodzi.Endpoint.Migrations
 
                     b.Property<decimal>("EmissionPerKm")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Unit")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -176,6 +169,10 @@ namespace OCo2Chodzi.Endpoint.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("BusinessType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Caption")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -184,12 +181,11 @@ namespace OCo2Chodzi.Endpoint.Migrations
                     b.Property<decimal>("EmissionPerKilo")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("GroupId")
-                        .HasColumnType("int");
+                    b.Property<string>("Unit")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GroupId");
 
                     b.ToTable("MassEmissions");
                 });
@@ -202,6 +198,10 @@ namespace OCo2Chodzi.Endpoint.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("BusinessType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Caption")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -210,12 +210,11 @@ namespace OCo2Chodzi.Endpoint.Migrations
                     b.Property<decimal>("Emission")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("GroupId")
-                        .HasColumnType("int");
+                    b.Property<string>("Unit")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GroupId");
 
                     b.ToTable("SingularEmissions");
                 });
@@ -239,38 +238,9 @@ namespace OCo2Chodzi.Endpoint.Migrations
                     b.Navigation("AbsorbionGroup");
                 });
 
-            modelBuilder.Entity("Oco2Chodzi.Models.Emissions.MassEmission", b =>
-                {
-                    b.HasOne("Oco2Chodzi.Models.Emissions.EmissionGroup", "Group")
-                        .WithMany("MassEmissions")
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Group");
-                });
-
-            modelBuilder.Entity("Oco2Chodzi.Models.Emissions.SingularEmission", b =>
-                {
-                    b.HasOne("Oco2Chodzi.Models.Emissions.EmissionGroup", "Group")
-                        .WithMany("SingularEmissions")
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Group");
-                });
-
             modelBuilder.Entity("Oco2Chodzi.Models.Absorbions.AbsorbionGroup", b =>
                 {
                     b.Navigation("AbsorbionAreas");
-                });
-
-            modelBuilder.Entity("Oco2Chodzi.Models.Emissions.EmissionGroup", b =>
-                {
-                    b.Navigation("MassEmissions");
-
-                    b.Navigation("SingularEmissions");
                 });
 #pragma warning restore 612, 618
         }
