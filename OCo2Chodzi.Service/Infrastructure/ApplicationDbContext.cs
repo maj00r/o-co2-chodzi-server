@@ -9,10 +9,11 @@ namespace OCo2Chodzi.Service.Infrastructure;
 
 public class ApplicationDbContext(DbContextOptions options) : DbContext(options)
 {
-    public DbSet<PredefinedAbsorbionRate> Absorbions { get; set; }
+    public DbSet<PredefinedAbsorbionRate> PredefinedAbsorbionRates { get; set; }
     public DbSet<LinearEmission> LinearEmissions { get; set; }
     public DbSet<MassEmission> MassEmissions { get; set; }
     public DbSet<SingularEmission> SingularEmissions { get; set; }
+    public DbSet<AbsorbionGroup> AbsorbionGroups { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -24,6 +25,13 @@ public class ApplicationDbContext(DbContextOptions options) : DbContext(options)
             .WithMany(c => c.AbsorbionAreas)
             .HasForeignKey(o => o.AbsorbionGroupId)
             .OnDelete(DeleteBehavior.NoAction); 
+
+        
+        modelBuilder.Model.GetEntityTypes()
+            .SelectMany(t => t.GetProperties())
+            .Where(p => p.ClrType == typeof(decimal) || p.ClrType == typeof(decimal?))
+            .ToList()
+            .ForEach(p => p.SetColumnType("decimal(18,6)"));
 
 
         base.OnModelCreating(modelBuilder);

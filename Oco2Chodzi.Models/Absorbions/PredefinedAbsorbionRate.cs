@@ -2,18 +2,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Oco2Chodzi.Models.Absorbions;
 
-public enum AbsorbionType
+public static class AbsorbionType
 {
-    OldTreeKilogramsPerYear,
-    MediumTreeKilogramsPerGrowingSeason,
-    TreeSaplingKilogramsPerYear,
-    ParkKilogramsPerYear
+    public static readonly string OldTreeKilogramsPerYear = "100yo-tree";
+    public static readonly string TreeSaplingKilogramsPerYear = "sapling-tree";
+    public static readonly string MediumTreeKilogramsPerGrowingSeason = "30yo-tree";
 }
 
 public record PredefinedAbsorbionRate : BaseEntity
 {
     [Required]
-    public AbsorbionType AbsorbionType { get; init; }
+    public required string AbsorbionType { get; init; }
 
     public decimal Value { get; init; }
 }

@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using Oco2Chodzi.Models.Emissions;
 using OCo2Chodzi.Service.Infrastructure;
 using OCo2Chodzi.Model;
+using OCo2Chodzi.Service.Ports;
 
-namespace OCo2Chodzi.Service.Ports;
+namespace OCo2Chodzi.Service.Adapters;
 
 internal class DiscoveryProvider(ApplicationDbContext dbContext) : IDiscoveryProvider
 {

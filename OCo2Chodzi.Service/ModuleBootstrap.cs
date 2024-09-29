@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using OCo2Chodzi.Service.Adapters;
 using OCo2Chodzi.Service.Infrastructure;
 using OCo2Chodzi.Service.Ports;
 
@@ -21,6 +22,7 @@ public static class ModuleBootstrap
         });
 
         services.AddScoped<IDiscoveryProvider, DiscoveryProvider>();
+        services.AddScoped<IAbsorbionCalculator, AbsorbionCalculator>();
 
         return services;
     }

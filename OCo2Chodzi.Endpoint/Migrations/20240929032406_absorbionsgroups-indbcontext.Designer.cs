@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetTopologySuite.Geometries;
 using OCo2Chodzi.Service.Infrastructure;
@@ -11,9 +12,11 @@ using OCo2Chodzi.Service.Infrastructure;
 namespace OCo2Chodzi.Endpoint.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240929032406_absorbionsgroups-indbcontext")]
+    partial class absorbionsgroupsindbcontext
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,8 +48,8 @@ namespace OCo2Chodzi.Endpoint.Migrations
 
                     b.Property<string>("Caption")
                         .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
@@ -73,8 +76,8 @@ namespace OCo2Chodzi.Endpoint.Migrations
 
                     b.Property<string>("Caption")
                         .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<int>("GrowingSeasonWeeks")
                         .HasColumnType("int");
@@ -97,8 +100,8 @@ namespace OCo2Chodzi.Endpoint.Migrations
 
                     b.Property<string>("Caption")
                         .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
@@ -119,8 +122,8 @@ namespace OCo2Chodzi.Endpoint.Migrations
 
                     b.Property<string>("Caption")
                         .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<decimal>("Value")
                         .HasColumnType("decimal(18,6)");
@@ -144,8 +147,8 @@ namespace OCo2Chodzi.Endpoint.Migrations
 
                     b.Property<string>("Caption")
                         .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<decimal>("EmissionPerKm")
                         .HasColumnType("decimal(18,6)");
@@ -173,8 +176,8 @@ namespace OCo2Chodzi.Endpoint.Migrations
 
                     b.Property<string>("Caption")
                         .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<decimal>("EmissionPerKilo")
                         .HasColumnType("decimal(18,6)");
@@ -202,8 +205,8 @@ namespace OCo2Chodzi.Endpoint.Migrations
 
                     b.Property<string>("Caption")
                         .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<decimal>("Emission")
                         .HasColumnType("decimal(18,6)");

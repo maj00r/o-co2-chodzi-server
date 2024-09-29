@@ -13,6 +13,6 @@ public abstract record BaseEntity
     public int Id { get; init; }
 
     [Required]
-    [StringLength(maximumLength: 20)]
+    [StringLength(maximumLength: 150)]
     public required string Caption { get; init; }
 }
